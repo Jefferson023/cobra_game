@@ -9,13 +9,13 @@ func _ready():
 	
 func _process(delta):
 	var movimento = Vector2.ZERO
-	
 	#verifica a posição para mover
 	var direcao_atual = ""
 	if Input.is_action_just_pressed("ui_left") and x != 1:
 		direcao_atual = "esquerda"
 		x = -1
 		y = 0
+		get_child(0).rotate(90)
 	elif Input.is_action_just_pressed("ui_right") and x != -1:
 		direcao_atual = "direita"
 		x = 1
