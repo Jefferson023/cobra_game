@@ -12,7 +12,6 @@ func _ready():
 	position.y = viewport.size.y/2
 	position.x = viewport.size.x/2
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
