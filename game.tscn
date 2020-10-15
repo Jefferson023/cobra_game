@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://cobra.gd" type="Script" id=1]
+[ext_resource path="res://sprites/cobra.png" type="Texture" id=2]
+[ext_resource path="res://cabeca_cobra.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="game" type="Node2D"]
+
+[node name="cobra" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="cabeca_cobra" type="KinematicBody2D" parent="cobra"]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cobra/cabeca_cobra"]
+scale = Vector2( 1.5, 1.5 )
+shape = SubResource( 1 )
+
+[node name="cobra_sprite" type="Sprite" parent="cobra/cabeca_cobra"]
+position = Vector2( 1, 0 )
+texture = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.326
+autostart = true
+[connection signal="timeout" from="Timer" to="cobra/cabeca_cobra" method="_on_Timer_timeout"]
