@@ -5,7 +5,7 @@ var n_cols = 0
 var cell_width = 0
 var cell_height = 0
 var direction = Vector2.ZERO
-var cell_pos = Vector2.ZERO
+var cell_pos = null
 
 func _ready():
 	var viewport = get_viewport_rect()
@@ -13,7 +13,9 @@ func _ready():
 	cell_height = $cobra_sprite.texture.get_height()
 	n_rows = ceil(viewport.size.y/cell_height)
 	n_cols = ceil(viewport.size.x/cell_width)
-
+	cell_pos = Vector2(n_cols/2, n_rows/2)
+	position = get_cell_pos(cell_pos)
+	
 func get_cell_pos(cell):
 	var x = cell.x
 	var y = cell.y
@@ -28,10 +30,21 @@ func _process(delta):
 		direction = Vector2.LEFT
 	elif (Input.is_action_just_pressed("ui_right")):
 		direction = Vector2.RIGHT		
-		
-	#move_and_collide(get_cell_pos(cell_pos))
 
 
 func _on_Timer_timeout():
+	if (cell_pos.x < 0):
+		cell_pos.x = n_cols
+		
+	elif (cell_pos.x > n_cols):
+		cell_pos.x = 0
+		
+	elif (cell_pos.y < 0):
+		cell_pos.y = n_rows
+		
+	elif (cell_pos.y > n_rows):
+		cell_pos.y = 0
+	
 	cell_pos += direction
-	position = get_cell_pos(cell_pos)
+	print(cell_pos)
+	position = get_cell_pos(cell_pos)	
