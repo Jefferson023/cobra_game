@@ -1,5 +1,8 @@
 extends Node2D
 
+signal move_body
+const body_scene = preload("res://body.tscn")
+
 func _ready():
 	pass
 	
@@ -29,6 +32,16 @@ func get_free_rows():
 	
 func get_cell_pos(x, y):
 	var head = get_child(0)
-	return head.get_cell_pos(Vector2(x, y))
-#func _process(delta):
-#	pass
+	return head.get_position_from_cell_pos(Vector2(x, y))
+
+func _on_head_move(direction):
+	if (get_child_count() > 1):
+		pass
+
+func _on_game_grow_snake():
+	var body_part = body_scene.instance()
+	var last_body_part = get_child(get_child_count()-1)
+	var direction = last_body_part.get_cell_direction()
+	var cell_pos = last_body_part.get_cell_pos() - direction
+	body_part.set_cell_direction(direction)
+	body_part.set_cell_pos(cell_pos)

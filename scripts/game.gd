@@ -3,6 +3,7 @@ extends Node2D
 const food_scene = preload("res://food.tscn")
 var food = null
 var rng = RandomNumberGenerator.new()
+signal grow_snake
 
 func _ready():
 	erase_and_show_food()
@@ -26,5 +27,7 @@ func select_random_position_food():
 func _on_head_area_shape_entered(area_id, area, area_shape, self_shape):
 	if (food.get_instance_id() == area_id):
 		erase_and_show_food()
+		#aumentar os pontos
+		emit_signal("grow_snake")
 	else:
 		print("colidiu com o corpo")	

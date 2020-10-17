@@ -1,12 +1,11 @@
-extends Area2D
+extends body
 
 var n_rows = 0
 var n_cols = 0
 var cell_width = 0
 var cell_height = 0
-var direction = Vector2.ZERO
-var cell_pos = null
-var delta2 = 0
+
+signal move(direction)
 
 func _ready():
 	var viewport = get_viewport_rect()
@@ -15,9 +14,9 @@ func _ready():
 	n_rows = ceil(viewport.size.y/cell_height)
 	n_cols = ceil(viewport.size.x/cell_width)
 	cell_pos = Vector2(n_cols/2, n_rows/2)
-	position = get_cell_pos(cell_pos)
+	position = get_position_from_cell_pos(cell_pos)
 	
-func get_cell_pos(cell):
+func get_position_from_cell_pos(cell):
 	var x = cell.x
 	var y = cell.y
 	return Vector2(x*cell_width + (cell_width/2), y*cell_height + (cell_height/2))
@@ -40,6 +39,8 @@ func _process(delta):
 	var delta2 = delta		
 
 func _on_Timer_timeout():
+	cell_pos += direction
+	
 	if (cell_pos.x < 0):
 		cell_pos.x = n_cols
 		
@@ -52,5 +53,5 @@ func _on_Timer_timeout():
 	elif (cell_pos.y > n_rows):
 		cell_pos.y = 0
 	
-	cell_pos += direction
-	position = get_cell_pos(cell_pos)	
+	position = get_position_from_cell_pos(cell_pos)	
+	emit_signal("move", direction)
