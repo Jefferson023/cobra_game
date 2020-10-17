@@ -15,6 +15,7 @@ script = ExtResource( 1 )
 
 [node name="head" type="Area2D" parent="snake"]
 script = ExtResource( 3 )
+is_head = true
 
 [node name="snake_sprite" type="Sprite" parent="snake/head"]
 texture = ExtResource( 2 )
