@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="cobrinha"
 run/main_scene="res://game.tscn"
 
+[display]
+
+window/size/height=512
+
 [input]
 
 ui_accept={
@@ -80,6 +84,11 @@ ui_end={
 "deadzone": 0.5,
 "events": [  ]
 }
+
+[layer_names]
+
+2d_render/layer_1=true
+2d_physics/layer_1=true
 
 [rendering]
 
