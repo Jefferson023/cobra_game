@@ -8,6 +8,7 @@ var cell_width = 0
 var cell_height = 0
 var cell_pos = Vector2.ZERO
 var direction = Vector2.ZERO
+var previous_position = Vector2.ZERO
 
 func _ready():
 	var viewport = get_viewport_rect()
@@ -25,17 +26,18 @@ func get_position_from_cell_pos(cell):
 	var y = cell.y
 	return Vector2(x*cell_width + (cell_width/2), y*cell_height + (cell_height/2))
 
-func move():
-	pass
+func get_previous_position():
+	return previous_position
+	
+func move(new_position):
+	previous_position = position
+	position = new_position
 
 func get_cell_pos():
 	return cell_pos
 
 func get_cell_direction():
 	return direction	
-	
-func update_position():
-	position = get_position_from_cell_pos(cell_pos)	
 	
 func set_cell_pos(cell_pos):
 	self.cell_pos = cell_pos

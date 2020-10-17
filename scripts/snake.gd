@@ -26,20 +26,22 @@ func get_cell_pos(free_cell_pos):
 	return head.get_position_from_cell_pos(free_cell_pos)
 
 func _on_head_move(direction):
-	if (get_child_count() > 1):
-		#mover todas as outras partes
-		pass
 	occupied_positions = []
 	for child_index in range(0, get_child_count()):
-		var cell_position = get_child(child_index).get_cell_pos()
+		var child = get_child(child_index)
+		#se for parte do corpo, atualize a posição antes de adicionar 
+		#nas ocupadas
+		if (child_index > 0):
+			var previous_body_part = get_child(child_index-1)
+			var new_position = previous_body_part.get_previous_position()
+			child.move(new_position)
+			
+		var cell_position = child.get_cell_pos()
 		occupied_positions.append((cell_position))
 		
 func _on_game_grow_snake():
 	var body_part = body_scene.instance()
 	var last_body_part = get_child(get_child_count()-1)
-	var direction = last_body_part.get_cell_direction()
-	var cell_pos = last_body_part.get_cell_pos() - direction
+	var new_position = last_body_part.get_previous_position()
+	body_part.position = new_position
 	add_child(body_part)
-	body_part.set_cell_direction(direction)
-	body_part.set_cell_pos(cell_pos)
-	body_part.update_position()
