@@ -1,6 +1,7 @@
 extends body
 
 signal move(direction)
+var can_change_direction = true
 
 func get_max_rows():
 	return self.n_rows
@@ -9,14 +10,18 @@ func get_max_columns():
 	return self.n_cols	
 	
 func _process(delta):
-	if (Input.is_action_just_pressed("ui_up") and self.direction != Vector2.DOWN):
+	if (Input.is_action_just_pressed("ui_up") and self.direction != Vector2.DOWN and self.can_change_direction):
 		self.direction = Vector2.UP
-	elif (Input.is_action_just_pressed("ui_down") and self.direction != Vector2.UP):
+		self.can_change_direction = false
+	elif (Input.is_action_just_pressed("ui_down") and self.direction != Vector2.UP and self.can_change_direction):
 		self.direction = Vector2.DOWN
-	elif (Input.is_action_just_pressed("ui_left") and self.direction != Vector2.RIGHT):
+		self.can_change_direction = false
+	elif (Input.is_action_just_pressed("ui_left") and self.direction != Vector2.RIGHT and self.can_change_direction):
 		self.direction = Vector2.LEFT
-	elif (Input.is_action_just_pressed("ui_right") and self.direction != Vector2.LEFT):
-		self.direction = Vector2.RIGHT	
+		self.can_change_direction = false
+	elif (Input.is_action_just_pressed("ui_right") and self.direction != Vector2.LEFT and self.can_change_direction):
+		self.direction = Vector2.RIGHT
+		self.can_change_direction = false	
 
 func _on_Timer_timeout():
 	self.cell_pos += self.direction
@@ -36,3 +41,4 @@ func _on_Timer_timeout():
 	self.previous_position = self.position
 	self.position = self.get_position_from_cell_pos(self.cell_pos)	
 	emit_signal("move", self.direction)
+	self.can_change_direction = true

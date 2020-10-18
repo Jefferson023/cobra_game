@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "body",
 "language": "GDScript",
-"path": "res://body.gd"
+"path": "res://scripts/body.gd"
 } ]
 _global_script_class_icons={
 "body": ""
@@ -23,6 +23,10 @@ _global_script_class_icons={
 config/name="cobrinha"
 run/main_scene="res://game.tscn"
 
+[autoload]
+
+PlayerScore="*res://scripts/player_score.gd"
+
 [display]
 
 window/size/height=512
@@ -31,7 +35,8 @@ window/size/height=512
 
 ui_accept={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+ ]
 }
 ui_select={
 "deadzone": 0.5,
