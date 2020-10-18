@@ -1,11 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/snake.gd" type="Script" id=1]
 [ext_resource path="res://sprites/snake_sprite.png" type="Texture" id=2]
 [ext_resource path="res://scripts/head_snake.gd" type="Script" id=3]
 [ext_resource path="res://scripts/game.gd" type="Script" id=4]
+[ext_resource path="res://times-new-roman.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 34
+font_data = ExtResource( 5 )
 
 [node name="game" type="Node2D"]
 script = ExtResource( 4 )
@@ -24,10 +29,31 @@ texture = ExtResource( 2 )
 scale = Vector2( 1.5, 1.5 )
 shape = SubResource( 1 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="move_timer" type="Timer" parent="."]
 wait_time = 0.326
 autostart = true
+
+[node name="score" type="Label" parent="."]
+margin_left = 944.0
+margin_top = 4.0
+margin_right = 984.0
+margin_bottom = 18.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="welcome_msg" type="Label" parent="."]
+margin_left = 333.371
+margin_top = 103.266
+margin_right = 715.371
+margin_bottom = 142.266
+custom_fonts/font = SubResource( 2 )
+text = "Press a direction key to start"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="grow_snake" from="." to="snake" method="_on_game_grow_snake"]
 [connection signal="area_shape_entered" from="snake/head" to="." method="_on_head_area_shape_entered"]
 [connection signal="move" from="snake/head" to="snake" method="_on_head_move"]
-[connection signal="timeout" from="Timer" to="snake/head" method="_on_Timer_timeout"]
+[connection signal="timeout" from="move_timer" to="snake/head" method="_on_Timer_timeout"]
