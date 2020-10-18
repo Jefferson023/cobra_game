@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cobra.png-2e3ce08be001bcaec9ad83dfd6dc1b43.stex"
+path="res://.import/food_sprite.png-28801b36d86ed1b16db66ed64d3659ee.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/cobra.png"
-dest_files=[ "res://.import/cobra.png-2e3ce08be001bcaec9ad83dfd6dc1b43.stex" ]
+source_file="res://sprites/food_sprite.png"
+dest_files=[ "res://.import/food_sprite.png-28801b36d86ed1b16db66ed64d3659ee.stex" ]
 
 [params]
 
