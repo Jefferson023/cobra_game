@@ -8,6 +8,7 @@ var actual_score = 0
 var player_score = null
 
 func _ready():
+	get_tree().paused = false
 	player_score = get_node("/root/PlayerScore")
 	print("Last score: " + str(player_score.last_score))
 	$score.text = "score: 0"
@@ -25,6 +26,7 @@ func erase_and_show_food():
 	if (food != null):
 		food.queue_free()
 	food = food_scene.instance()
+	var snake = get_child(0)
 	food.position = select_random_position_food()
 	add_child(food)
 	

@@ -1,25 +1,36 @@
 extends body
-
+#sinal responsável por informar ao nó cobra que a cabeça foi movida
 signal move(direction)
+#variável que verifica se pode mudar de direção, 
+#para evitar que o jogador mude a direção muito rápido
 var can_change_direction = true
 
-func get_max_rows():
-	return self.n_rows
-
-func get_max_columns():
-	return self.n_cols	
-	
+#função que verifica se o jogador está dentro da parede
+func is_inside_wall():
+	var viewport = get_viewport_rect()
+	if (position.x < 0 or position.x > viewport.size.x
+	or position.y < 0 or position.y > viewport.size.y):
+		return true
+	return false
+		
 func _process(delta):
-	if (Input.is_action_just_pressed("ui_up") and self.direction != Vector2.DOWN and self.can_change_direction):
+	if (Input.is_action_just_pressed("ui_up") and self.direction != Vector2.DOWN 
+	and self.can_change_direction and not is_inside_wall()):
 		self.direction = Vector2.UP
 		self.can_change_direction = false
-	elif (Input.is_action_just_pressed("ui_down") and self.direction != Vector2.UP and self.can_change_direction):
+		
+	elif (Input.is_action_just_pressed("ui_down") and self.direction != Vector2.UP 
+	and self.can_change_direction and not is_inside_wall()):
 		self.direction = Vector2.DOWN
 		self.can_change_direction = false
-	elif (Input.is_action_just_pressed("ui_left") and self.direction != Vector2.RIGHT and self.can_change_direction):
+		
+	elif (Input.is_action_just_pressed("ui_left") and self.direction != Vector2.RIGHT 
+	and self.can_change_direction and not is_inside_wall()):
 		self.direction = Vector2.LEFT
 		self.can_change_direction = false
-	elif (Input.is_action_just_pressed("ui_right") and self.direction != Vector2.LEFT and self.can_change_direction):
+		
+	elif (Input.is_action_just_pressed("ui_right") and self.direction != Vector2.LEFT 
+	and self.can_change_direction and not is_inside_wall()):
 		self.direction = Vector2.RIGHT
 		self.can_change_direction = false	
 
@@ -42,3 +53,9 @@ func _on_Timer_timeout():
 	self.position = self.get_position_from_cell_pos(self.cell_pos)	
 	emit_signal("move", self.direction)
 	self.can_change_direction = true
+
+func get_max_rows():
+	return self.n_rows
+
+func get_max_columns():
+	return self.n_cols	
