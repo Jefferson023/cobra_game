@@ -34,6 +34,7 @@ func _process(delta):
 		self.direction = Vector2.RIGHT
 		self.can_change_direction = false	
 
+#sinal do timer para movimentar a cobra
 func _on_Timer_timeout():
 	self.cell_pos += self.direction
 	

@@ -34,7 +34,7 @@ shape = SubResource( 1 )
 
 [node name="move_timer" type="Timer" parent="."]
 pause_mode = 1
-wait_time = 0.326
+wait_time = 0.35
 autostart = true
 
 [node name="score" type="Label" parent="."]
